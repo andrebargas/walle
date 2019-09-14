@@ -2,11 +2,20 @@ import logging
 from flask import request, jsonify, abort, make_response
 from flask_restplus import Resource, Api
 from ..restplus import api
-from ..model.benefits_actions import  get_benefit_detail, list_benefits
+from ..model.benefits_actions import  get_benefit_detail, list_benefits, insert_benefit
 
 
 ns = api.namespace('benefits', description='Api para gerenciamento de usuarios')
 
+@ns.route('/add')
+class Benefits(Resource):
+
+    @ns.doc(params={
+        "exp": "exemplo"
+    })
+    def get(self):
+        insert_benefit()
+        return 200
 
 @ns.route('/detail')
 class BenefitsDetail(Resource):

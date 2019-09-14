@@ -2,11 +2,22 @@ import logging
 from flask import request, jsonify, abort, make_response
 from flask_restplus import Resource, Api
 from ..restplus import api
-from ..model.user_actions import give_points, list_users, use_points, get_user_detail
+from ..model.user_actions import give_points, list_users, use_points, get_user_detail, add_user
 from ..model.benefits_actions import insert_benefit, get_benefits_cost
 
 
 ns = api.namespace('user', description='Api para gerenciamento de usuarios')
+
+
+@ns.route('/add')
+class User(Resource):
+
+    @ns.doc(params={
+        "exp": "exemplo"
+    })
+    def get(self):
+        add_user()
+        return 200
 
 
 @ns.route('/detail')

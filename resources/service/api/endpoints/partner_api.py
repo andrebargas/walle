@@ -2,10 +2,21 @@ import logging
 from flask import request, jsonify, abort, make_response
 from flask_restplus import Resource, Api
 from ..restplus import api
-from ..model.partner_actions import  get_partner_detail, list_partner
+from ..model.partner_actions import get_partner_detail, list_partner, insert_partner
 
 
 ns = api.namespace('partner', description='Api para gerenciamento de usuarios')
+
+
+@ns.route('/add')
+class Partner(Resource):
+
+    @ns.doc(params={
+        "exp": "exemplo"
+    })
+    def get(self):
+        insert_partner()
+        return 200
 
 
 @ns.route('/detail')

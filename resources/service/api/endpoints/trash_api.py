@@ -8,7 +8,7 @@ from ..model.trash_actions import  get_trash_detail, list_trash, insert_trash
 ns = api.namespace('trash', description='Api para gerenciamento de usuarios')
 
 @ns.route('/add')
-class TrashDetail(Resource):
+class Trash(Resource):
 
     @ns.doc(params={
         "exp": "exemplo"
