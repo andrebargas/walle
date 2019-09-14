@@ -1,0 +1,61 @@
+version: '3'
+services:
+
+  gateway:
+    image: nginx
+    volumes:
+     - ./nginx/nginx-custom.conf:/etc/nginx/conf.d/default.conf
+    ports:
+     - "443:80"
+    environment:
+     - NGINX_PORT=80
+    command: /bin/bash -c "exec nginx -g 'daemon off;'"
+    networks:
+      - backend
+
+  resources:
+    build:
+      context: ./resources
+      dockerfile: Dockerfile
+    volumes:
+      - ./resources:/code
+    command: /bin/sh ./run.sh
+    ports:
+      - "9001:5000"
+    networks:
+      - backend
+
+  activites:
+    build:
+      context: ./activities
+      dockerfile: Dockerfile
+    volumes:
+      - ./activities:/code
+    command: /bin/sh ./run.sh
+    ports:
+      - "9002:5000"
+    networks:
+      - backend
+
+  mongo:
+    image: mongo
+    user: root
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+  mongo-express:
+      image: mongo-express
+      ports:
+        - "8000:8081"
+      environment:
+        ME_CONFIG_BASICAUTH_USERNAME: root
+        ME_CONFIG_BASICAUTH_PASSWORD: root
+        ME_CONFIG_MONGODB_SERVER: mongo
+      networks:
+        - backend
+
+networks:
+  backend:
+    driver: bridge
