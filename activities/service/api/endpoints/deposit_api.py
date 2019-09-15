@@ -28,8 +28,6 @@ class Deposit(Resource):
         print(deposit)
         print(type(deposit))
 
-
-
         points = trash_type * 10
 
         payload = {
