@@ -16,7 +16,7 @@ class User(Resource):
         "exp": "exemplo"
     })
     def get(self):
-        add_user("usuario1", "usr@gmail.com")
+        add_user("jericoco", "jerico@gmail.com")
         return 200
 
 

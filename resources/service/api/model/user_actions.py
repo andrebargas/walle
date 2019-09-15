@@ -21,7 +21,7 @@ def get_user_detail(user_id):
 #usado só para iserir o dado mockado
 def add_user(name, email):
     user = {
-        "id":1,
+        "id":2,
         "name":name,
         "email":email,
         "points": 0
