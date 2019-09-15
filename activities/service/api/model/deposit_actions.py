@@ -4,7 +4,7 @@ import datetime
 
 def insert_deposit(user_id, trash_id, trash_type):
     deposit = {
-        "date_time": str(datetime.datetime.now()),
+        "date_time": str(datetime.datetime.now("%d/%m/%Y")),
         "user_id": user_id,
         "trash_id": trash_id,
         "trash_type": trash_type

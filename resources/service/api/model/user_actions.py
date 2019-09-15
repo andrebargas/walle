@@ -34,6 +34,8 @@ def give_points(user_id, points):
     my_query = {"id": user_id}
     user = user_collection.find_one(my_query)
 
+    print("\n\noasd;asd")
+
     new_points = user["points"] + points
 
     new_values = {"$set": {"points": new_points}}
