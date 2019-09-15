@@ -7,10 +7,39 @@ from ..model.deposit_actions import get_deposits_by_trash,\
                                     insert_deposit,\
                                     get_deposits_by_user,\
                                     deleteAllDeposits
+from ..bo.preprocess import preprocessmessage
 import requests
 
 ns = api.namespace('deposit', description='Api para gerenciamento de depositos')
 
+
+@ns.route('/postman/new')
+class Deposit(Resource):
+
+    @ns.doc(params={
+        "exp": "exemplo"
+    })
+    def post(self):
+        data = request.get_json()
+        user_id = data[1]
+        trash_id = 1
+        trash_type = data[1]
+        deposit = insert_deposit(user_id, trash_id, trash_type)
+
+        print(deposit)
+        print(type(deposit))
+
+        points = trash_type * 10
+
+        payload = {
+            "user_id": user_id,
+            "points": points,
+        }
+
+        requests.post("http://resources:5000/api/user/give_points", json=payload)
+
+
+        return 200
 
 @ns.route('/new')
 class Deposit(Resource):
@@ -20,6 +49,7 @@ class Deposit(Resource):
     })
     def post(self):
         data = request.get_json()
+        data = preprocessmessage(data)
         user_id = data[1]
         trash_id = 1
         trash_type = data[1]
