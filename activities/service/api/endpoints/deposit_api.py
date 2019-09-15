@@ -75,7 +75,7 @@ class DepositList(Resource):
         deposits = list_deposit()
         return jsonify(deposits)
 
-@ns.route('/deleteAll')
+@ns.route('/delete_all')
 class DepositList(Resource):
 
     @ns.doc(params={
