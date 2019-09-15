@@ -79,3 +79,13 @@ class UsePoints(Resource):
             return 200
         else:
             return 500
+
+
+@ns.route('/delete_all')
+class DeleteUsers(Resource):
+
+    @ns.doc(params={
+        "exp": "exemplo"
+    })
+    def get(self):
+        return 200

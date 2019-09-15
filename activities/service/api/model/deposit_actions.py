@@ -1,15 +1,21 @@
 from ..restplus import deposit_collection
 import datetime
+import pytz
 
 
 def insert_deposit(user_id, trash_id, trash_type):
     deposit = {
-        "date_time": str(datetime.datetime.now("%d/%m/%Y")),
+        "date_time": datetime.datetime.now(tz=pytz.utc).strftime("%d/%m/%Y %H:%M"),
         "user_id": user_id,
         "trash_id": trash_id,
         "trash_type": trash_type
     }
     deposit_collection.insert_one(deposit)
+
+
+
+def deleteAllDeposits():
+    deposit_collection.drop({})
 
 
 def list_deposit():

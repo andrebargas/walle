@@ -2,7 +2,11 @@ import logging
 from flask import request, jsonify, abort, make_response
 from flask_restplus import Resource, Api
 from ..restplus import api
-from ..model.deposit_actions import  get_deposits_by_trash, list_deposit, insert_deposit, get_deposits_by_user
+from ..model.deposit_actions import get_deposits_by_trash,\
+                                    list_deposit, \
+                                    insert_deposit,\
+                                    get_deposits_by_user,\
+                                    deleteAllDeposits
 import requests
 
 ns = api.namespace('deposit', description='Api para gerenciamento de depositos')
@@ -16,10 +20,15 @@ class Deposit(Resource):
     })
     def post(self):
         data = request.get_json()
-        user_id = data[0]
+        user_id = data[1]
         trash_id = 1
         trash_type = data[1]
         deposit = insert_deposit(user_id, trash_id, trash_type)
+
+        print(deposit)
+        print(type(deposit))
+
+
 
         points = trash_type * 10
 
@@ -28,10 +37,10 @@ class Deposit(Resource):
             "points": points,
         }
 
-        requests.post("http://resources:5000/api/user/give_points", data=payload)
+        requests.post("http://resources:5000/api/user/give_points", json=payload)
 
-        return jsonify(deposit)
 
+        return 200
 
 @ns.route('/byuser')
 class DepositListUser(Resource):
@@ -67,3 +76,13 @@ class DepositList(Resource):
     def get(self):
         deposits = list_deposit()
         return jsonify(deposits)
+
+@ns.route('/deleteAll')
+class DepositList(Resource):
+
+    @ns.doc(params={
+        "exp": "exemplo"
+    })
+    def get(self):
+        deleteAllDeposits()
+        return 200

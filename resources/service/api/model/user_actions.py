@@ -17,11 +17,14 @@ def get_user_detail(user_id):
 
     return user
 
+def delete_all_users():
+    user_collection.drop({})
+
 
 #usado só para iserir o dado mockado
 def add_user(name, email):
     user = {
-        "id":2,
+        "id":1,
         "name":name,
         "email":email,
         "points": 0
@@ -33,8 +36,6 @@ def give_points(user_id, points):
 
     my_query = {"id": user_id}
     user = user_collection.find_one(my_query)
-
-    print("\n\noasd;asd")
 
     new_points = user["points"] + points
 
