@@ -16,8 +16,8 @@ class Colector(Resource):
     })
     def post(self):
         data = request.get_json()
-        trash_id = data["trash_id"]
-        trash_type = data["trash_type"]
+        trash_id = 1
+        trash_type = data
         insert_colector(trash_id, trash_type)
 
         return 200

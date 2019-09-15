@@ -16,9 +16,9 @@ class Deposit(Resource):
     })
     def post(self):
         data = request.get_json()
-        user_id = data["user_id"]
-        trash_id = data["trash_id"]
-        trash_type = data["trash_type"]
+        user_id = 1
+        trash_id = 1
+        trash_type = data
         deposit = insert_deposit(user_id, trash_id, trash_type)
 
         points = trash_type * 10
