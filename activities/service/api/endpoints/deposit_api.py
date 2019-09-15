@@ -9,6 +9,7 @@ from ..model.deposit_actions import get_deposits_by_trash,\
                                     deleteAllDeposits
 from ..bo.preprocess import preprocessmessage
 import requests
+import base64
 
 ns = api.namespace('deposit', description='Api para gerenciamento de depositos')
 
@@ -49,10 +50,13 @@ class Deposit(Resource):
     })
     def post(self):
         data = request.get_json()
-        data = preprocessmessage(data)
-        user_id = data[1]
+
+        n_message = base64.b64decode(data).decode("utf-8")
+        n_message = n_message.encode().hex().split('0')[1:]
+
+        user_id = n_message[0]
         trash_id = 1
-        trash_type = data[1]
+        trash_type = n_message[1]
         deposit = insert_deposit(user_id, trash_id, trash_type)
 
         print(deposit)
